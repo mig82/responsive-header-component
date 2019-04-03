@@ -45,8 +45,8 @@
     "canUpdateUI": true,
     "canvasWidth": 1200,
     "children": [
-        "headerFlex",
-        "titleLabel"
+        "ResponsiveHeader1",
+        "titleLabel2"
     ],
     "containerweight": 100,
     "controllerInfo": {
@@ -123,7 +123,7 @@
     "titlebar": true,
     "type": 3,
     "vizProps": {
-        "globalRespDesignEnabled": false
+        "globalRespDesignEnabled": true
     },
     "wType": "Form",
     "windows8": {

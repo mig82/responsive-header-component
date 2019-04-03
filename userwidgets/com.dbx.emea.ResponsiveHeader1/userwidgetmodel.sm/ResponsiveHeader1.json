@@ -23,7 +23,7 @@
         0
     ],
     "_percent_": true,
-    "_skin_": "s457ae08b6b94235b1610727f702f3e7",
+    "_skin_": "s2eeb268263f403ba065dd276374ac59",
     "_top_": {
         "type": "string",
         "value": "0dp"
@@ -42,19 +42,15 @@
     "clipbounds": false,
     "containerweight": 100,
     "enablescrolling": true,
-    "id": "headerFlex",
+    "id": "ResponsiveHeader1",
     "info": null,
     "iscustomlayout": false,
     "isvisible": true,
-    "kuid": "g0f5b3054fa843f58db764f78239257d",
+    "kuid": "je97e2e54e844ac4a39e176cf00e6354",
     "layouttype": 2,
     "name": "kony.ui.FlexContainer",
-    "parent": "loanOrigForm",
-    "pf": "loanOrigForm",
-    "responsiveData": {
-        "b3": {},
-        "b4": {}
-    },
+    "parent": "userwidgetmodel",
+    "pf": "userwidgetmodel",
     "retaincontentalignment": false,
     "retainflexpositionproperties": false,
     "retainflowhorizontalalignment": false,

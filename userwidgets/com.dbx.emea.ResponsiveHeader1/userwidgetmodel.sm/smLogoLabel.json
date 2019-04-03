@@ -56,18 +56,11 @@
     },
     "iscustomlayout": false,
     "isvisible": false,
-    "kuid": "j3dcd28411224f13aa9926a67851ffb7",
+    "kuid": "f8c6dbd098374cbe8fb8978d54a39e71",
     "name": "kony.ui.Label",
-    "parent": "headerFlex",
-    "pf": "loanOrigForm",
-    "responsiveData": {
-        "b3": {
-            "isVisible": false
-        },
-        "b4": {
-            "isVisible": true
-        }
-    },
+    "parent": "ResponsiveHeader1",
+    "pf": "userwidgetmodel",
+    "responsiveData": {},
     "retaincontentalignment": false,
     "retainflexpositionproperties": false,
     "tooltip": "",

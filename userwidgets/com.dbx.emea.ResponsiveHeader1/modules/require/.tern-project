@@ -1,0 +1,8 @@
+{
+  "libs": [
+    "../../../../../.intellisense/defs/kony_api.json",
+    "../../../../../.intellisense/defs/kony_sdk.json",
+    "../../../../../.intellisense/defs/kony_api_mvc.json",
+    "../../../../../.intellisense/defs/kony_api_mvc_extensions.json"
+  ]
+}

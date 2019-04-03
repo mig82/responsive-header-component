@@ -18,15 +18,15 @@
         0,
         0
     ],
-    "_right_": {
+    "_skin_": "s02eb75c8a754a7aacf2bd7aaf28e3ab",
+    "_text_": "What can we help you with?",
+    "_top_": {
         "type": "string",
-        "value": "5dp"
+        "value": "100dp"
     },
-    "_skin_": "s4844d2e891f43c8b8f1cd87d0dc60f0",
-    "_text_": "Kony DB~",
     "_width_": {
-        "type": "ref",
-        "value": "preferred"
+        "type": "string",
+        "value": "90%"
     },
     "_wrapping_": 2,
     "android": {
@@ -37,16 +37,12 @@
     },
     "canUpdateUI": true,
     "centerx": {
-        "type": "number",
-        "value": ""
-    },
-    "centery": {
         "type": "string",
-        "value": "50.00%"
+        "value": "50%"
     },
     "containerweight": 100,
-    "contentalignment": 4,
-    "id": "mdLogoLabel",
+    "contentalignment": 5,
+    "id": "titleLabel2",
     "info": null,
     "ipad": {
         "psp": {
@@ -60,36 +56,14 @@
     },
     "iscustomlayout": false,
     "isvisible": true,
-    "kuid": "adac794748f642b1889c679fb3881537",
+    "kuid": "a2027c0caa5542d4a2d7f98d5ae28283",
     "name": "kony.ui.Label",
-    "parent": "headerFlex",
+    "parent": "loanOrigForm",
     "pf": "loanOrigForm",
     "responsiveData": {
-        "b1": {
-            "centerX": {
-                "type": "string",
-                "value": "50%"
-            },
-            "right": {
-                "type": "string",
-                "value": ""
-            }
-        },
-        "b2": {
-            "centerX": {
-                "type": "string",
-                "value": "50%"
-            },
-            "right": {
-                "type": "string",
-                "value": ""
-            }
-        },
-        "b3": {
-            "isVisible": true
-        },
+        "b3": {},
         "b4": {
-            "isVisible": false
+            "skin": "s02e7fa2522d49329958ee8443e41fc5"
         }
     },
     "retaincontentalignment": false,

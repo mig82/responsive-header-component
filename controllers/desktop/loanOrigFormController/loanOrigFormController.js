@@ -1,5 +1,4 @@
-define({ 
+/*globals define, kony, require, amplify */
+define({
 
- //Type your controller code here 
-
- });
+});
