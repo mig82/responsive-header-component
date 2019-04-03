@@ -45,7 +45,8 @@
     "canUpdateUI": true,
     "canvasWidth": 1200,
     "children": [
-        "headerFlex"
+        "headerFlex",
+        "titleLabel"
     ],
     "containerweight": 100,
     "controllerInfo": {
@@ -87,6 +88,11 @@
     "name": "kony.ui.Form2",
     "needappmenu": false,
     "paddinginpixel": false,
+    "responsiveData": {
+        "b2": {
+            "skin": "sb24eaf85886424e919999975c9d9982"
+        }
+    },
     "retaincontentalignment": false,
     "retainflexpositionproperties": false,
     "retainscrollposition": false,
