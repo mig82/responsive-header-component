@@ -22,7 +22,7 @@
         "type": "string",
         "value": "5dp"
     },
-    "_skin_": "s4844d2e891f43c8b8f1cd87d0dc60f0",
+    "_skin_": "s561f137c3444dbcb69747d5fc6d6047",
     "_text_": "~",
     "_width_": {
         "type": "ref",
@@ -36,6 +36,10 @@
         }
     },
     "canUpdateUI": true,
+    "centerx": {
+        "type": "number",
+        "value": ""
+    },
     "centery": {
         "type": "string",
         "value": "50%"
@@ -55,12 +59,11 @@
         }
     },
     "iscustomlayout": false,
-    "isvisible": false,
-    "kuid": "f8c6dbd098374cbe8fb8978d54a39e71",
+    "isvisible": true,
+    "kuid": "a3d1e0dbd3084834bf5aa55138a8d835",
     "name": "kony.ui.Label",
     "parent": "ResponsiveHeader1",
     "pf": "userwidgetmodel",
-    "responsiveData": {},
     "retaincontentalignment": false,
     "retainflexpositionproperties": false,
     "tooltip": "",

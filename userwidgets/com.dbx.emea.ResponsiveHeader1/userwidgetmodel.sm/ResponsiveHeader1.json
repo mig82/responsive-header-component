@@ -36,8 +36,8 @@
     "autogrowmode": 0,
     "canUpdateUI": true,
     "children": [
-        "smLogoLabel",
-        "mdLogoLabel"
+        "mdLogoLabel",
+        "smLogoLabel"
     ],
     "clipbounds": false,
     "containerweight": 100,
