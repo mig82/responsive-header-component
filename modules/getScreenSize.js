@@ -36,7 +36,13 @@ var getScreenSize = function(breakpoints, width){
 			size = "XXL";
 			break;
 		default:
-			throw new Error("Unknown screen resolution");
+			//A glitch in the SDK may cause width to be insanely large  -e.g.: 1.7976931348623157e+308
+			if(width > Math.max.apply(null, breakpoints)) {
+				size = "XXL";
+			}
+			else{
+				throw new Error("Unknown screen resolution");
+			}
 	}
 	kony.print(`Screen size: ${size}`);
 	return size;
