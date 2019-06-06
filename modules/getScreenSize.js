@@ -36,8 +36,13 @@ var getScreenSize = function(breakpoints, width){
 			size = "XXL";
 			break;
 		default:
-			//A glitch in the SDK may cause width to be insanely large  -e.g.: 1.7976931348623157e+308
-			if(width > Math.max.apply(null, breakpoints)) {
+			/* Check if if the current browser window size has gone beyond the
+			highest breakpoint value constants.BREAKPOINT_MAX_VALUE -e.g.: 1.7976931348623157e+308
+			or (for non-browser environments) if it's simply larger than the largest breakpoint.*/
+			if(
+				(constants && constants.BREAKPOINT_MAX_VALUE && width >= constants.BREAKPOINT_MAX_VALUE) ||
+				(width >= Math.max.apply(null, breakpoints))
+			  ) {
 				size = "XXL";
 			}
 			else{
