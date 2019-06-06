@@ -1,5 +1,5 @@
 // -- SDK File : KonySyncLib.js 
-//  --Generated On Thu Mar 14 21:56:14 IST 2019******************* 
+//  --Generated On Fri May 03 14:48:35 IST 2019******************* 
 //  **************** Start jsonWriter.js*******************
 //#ifdef iphone
 	//#define KONYSYNC_IOS
@@ -11399,36 +11399,95 @@ kony.sync.rollbackTransaction = function (tx) {
 
 //Wrapper for kony.db.executeSql
 kony.sync.executeSql = function (tx, sql, params, errorCallback, rollback, opMsg) {
-	sync.log.trace("Entering kony.sync.executeSql ");
-	kony.sync.errorObject = null;
-	if (!kony.sync.isNullOrUndefined(opMsg)) {
-		sync.log.debug(opMsg);
-	}
-	sync.log.debug("SQL Query : ", sql);
-	sync.log.debug("SQL Params : ", params);
-	var result = kony.db.executeSql(tx, sql, params, localErrorCallback);
-	if (result === null) {
-		sync.log.error("Query execution failed: " + sql + " with params : ",params);
-		return false;
-	} else {
-		sync.log.debug("Query execution success: "+ sql + " with params : ",params);
-		sync.log.debug("Result of query execution is: ", result);
-		return result;
-	}
-	function localErrorCallback(tx, res) {
-		sync.log.trace("Entering localErrorCallback");
-		var errorInfo = {};
-		errorInfo[kony.sync.errorInfoTransactionID] = tx;
-		errorInfo[kony.sync.errorInfoDatabaseError] = res;
-		sync.log.error("SQLite Error : ", res);
-		kony.sync.errorObject = kony.sync.getErrorTable(kony.sync.errorCodeSQLStatement, kony.sync.getErrorMessage(kony.sync.errorCodeSQLStatement), errorInfo);
-	//	kony.sync.verifyAndCallClosure(errorCallback, kony.sync.getErrorTable(kony.sync.errorCodeSQLStatement, kony.sync.getErrorMessage(kony.sync.errorCodeSQLStatement), errorInfo));
-		if (rollback === false) {
-			return false;
-		} else {
-			return true;
-		}
-	}
+    // method to get table name from sql query
+    function getObjectNameAndPKColName(sqlStmt) {
+        var insertIgnoreCommand = "insert or ignore into";
+        var deleteFromCommand = "delete from";
+        var insertCommand = "insert into";
+        var deleteCommand = "delete";
+        var updateCommand = "update";
+        var originalTable = "_original";
+        var historyTable = "_history";
+
+        var pkColumn = "";
+        var tableName = "";
+        var retVal = [];
+        var words = sqlStmt.split(' ');
+
+        if (sqlStmt.startsWith(insertIgnoreCommand)) {
+            tableName = words[4];
+        } else if (sqlStmt.startsWith(insertCommand) || sqlStmt.startsWith(deleteFromCommand)) {
+            tableName = words[2];
+        } else if (sqlStmt.startsWith(updateCommand)) {
+            tableName = words[1];
+            pkColumn = words[3];
+        } else if (sqlStmt.startsWith(deleteCommand)) {
+            tableName = words[1];
+        }
+
+        if (tableName.endsWith(originalTable)) {
+            tableName = tableName.slice(0, tableName.lastIndexOf(originalTable));
+        }
+
+        retVal.push(tableName);
+        retVal.push(pkColumn.replace(/\'/g, '').replace(/\"/g, '').replace(/=/g, '').replace(/\?/g, '').trim());
+        return retVal;
+    }
+
+    // method to get reconciliation error if occured for update
+    function getReconcilitaionError(sqlStatement, errorResult) {
+        var sqlStmt = sqlStatement.toLowerCase().replace(/\s+/g, ' ').trim();
+        if (sqlStmt.startsWith("update") && errorResult.message.toLowerCase().indexOf("unique constraint failed") >= 0) {
+            var tabAndPk = getObjectNameAndPKColName(sqlStmt);
+            return {
+                "tableName": (tabAndPk[0]).toUpperCase(),
+                "pkColumn": (tabAndPk[1]).toUpperCase(),
+                "createdPK": params[1],
+                "existingPK": params[0],
+                "recievedPK": params[0],
+            };
+        } else {
+            return null;
+        }
+    }
+
+    sync.log.trace("Entering kony.sync.executeSql ");
+    kony.sync.errorObject = null;
+
+    if (!kony.sync.isNullOrUndefined(opMsg)) {
+        sync.log.debug(opMsg);
+    }
+
+    sync.log.debug("SQL Query : ", sql);
+    sync.log.debug("SQL Params : ", params);
+
+    var result = kony.db.executeSql(tx, sql, params, localErrorCallback);
+    if (result === null) {
+        sync.log.error("Query execution failed: " + sql + " with params : ", params);
+        return false;
+    } else {
+        sync.log.debug("Query execution success: " + sql + " with params : ", params);
+        sync.log.debug("Result of query execution is: ", result);
+        return result;
+    }
+
+    function localErrorCallback(tx, res) {
+        var errorInfo = {};
+        errorInfo[kony.sync.errorInfoTransactionID] = tx;
+        errorInfo[kony.sync.errorInfoDatabaseError] = res;
+        var recocileError = getReconcilitaionError(sql, res);
+        if (recocileError) {
+            errorInfo["duplicatePKError"] = recocileError;
+            kony.sync.reconciliationErrorObject.push(recocileError);
+        }
+        sync.log.error("SQLite Error : ", res);
+        kony.sync.errorObject = kony.sync.getErrorTable(kony.sync.errorCodeSQLStatement, kony.sync.getErrorMessage(kony.sync.errorCodeSQLStatement), errorInfo);
+        if (rollback === false) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 };
 
 kony.sync.callTransactionError = function(isError, errorcallback){
